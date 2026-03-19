@@ -27,7 +27,7 @@ class PricingService
 
             if (!$inventory) continue;
 
-            // 👇 per person pricing (1–3)
+            //  per person pricing (1–3)
             if ($guests == 1) {
                 $price = $inventory->base_price;
             } elseif ($guests == 2) {
@@ -39,12 +39,12 @@ class PricingService
             $total += ($price + $meal);
         }
 
-        // 🔥 DISCOUNT LOGIC
+        // DISCOUNT LOGIC
         $discountPercent = 0;
 
         $nights = Carbon::parse($checkIn)->diffInDays($checkOut);
 
-        // ✅ Long stay
+        // Long stay
         $longStay = Discount::where('type', 'long_stay')
             ->where('min_nights', '<=', $nights)
             ->orderByDesc('min_nights')
@@ -54,7 +54,7 @@ class PricingService
             $discountPercent = max($discountPercent, $longStay->value);
         }
 
-        // ✅ Last minute
+        //  Last minute
         $daysBefore = Carbon::now()->diffInDays(Carbon::parse($checkIn), false);
 
         $lastMinute = Discount::where('type', 'last_minute')
@@ -66,7 +66,7 @@ class PricingService
             $discountPercent = max($discountPercent, $lastMinute->value);
         }
 
-        // 💰 Apply discount
+        // Apply discount
         $discountAmount = ($total * $discountPercent) / 100;
         $final = $total - $discountAmount;
 

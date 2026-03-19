@@ -14,7 +14,7 @@
             text-align: center;
         }
 
-        /* 🔥 MENU BUTTON */
+        /*  MENU BUTTON */
         .menu-btn {
             position: fixed;
             top: 20px;

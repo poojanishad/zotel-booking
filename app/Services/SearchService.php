@@ -12,13 +12,13 @@ class SearchService
 
         foreach (RoomType::all() as $room) {
 
-            // ✅ FIX: Always 1 room for 1–3 adults
+            //  Always 1 room for 1–3 adults
             $roomsNeeded = 1;
 
             $availability = app(AvailabilityService::class)
                 ->check($room->id, $data['check_in'], $data['check_out']);
 
-            // ✅ FIX: only check at least 1 room available
+            // only check at least 1 room available
             if ($availability < 1) {
                 $availability = 0;
             }
@@ -29,7 +29,7 @@ class SearchService
                     $data['check_in'],
                     $data['check_out'],
                     $data['meal_plan'] ?? null,
-                    $data['guests'] // 🔥 IMPORTANT: pass guests, not rooms
+                    $data['guests'] 
                 );
 
             $results[] = [

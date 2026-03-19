@@ -10,7 +10,7 @@ body {
     padding: 40px;
 }
 
-/* 🔥 MENU BUTTON */
+/* MENU BUTTON */
 .menu-btn {
     position: fixed;
     top: 20px;
@@ -24,7 +24,7 @@ body {
     cursor: pointer;
 }
 
-/* 🔥 SIDEBAR */
+/*SIDEBAR */
 .sidebar {
     position: fixed;
     right: -300px;
@@ -114,10 +114,8 @@ button {
 
 <body>
 
-<!-- 🔥 MENU ICON -->
 <button onclick="toggleSidebar()" class="menu-btn">☰</button>
 
-<!-- 🔥 SIDEBAR -->
 <div id="sidebar" class="sidebar">
     <h3>Zotel Demo</h3>
 
@@ -156,7 +154,7 @@ button {
 
 <script>
 
-// 🔥 SIDEBAR TOGGLE
+//  SIDEBAR TOGGLE
 function toggleSidebar() {
     let sidebar = document.getElementById('sidebar');
 
@@ -167,7 +165,7 @@ function toggleSidebar() {
     }
 }
 
-// 🔥 Toast
+//  Toast
 function showToast(msg, success = true) {
     const t = document.getElementById('toast');
     t.innerText = msg;
@@ -176,7 +174,7 @@ function showToast(msg, success = true) {
     setTimeout(() => t.classList.remove('show'), 2000);
 }
 
-// 🔥 Load
+// Load
 function loadDiscounts() {
     fetch('/api/discounts')
     .then(res => res.json())
@@ -211,7 +209,7 @@ function loadDiscounts() {
     });
 }
 
-// 🔥 EDIT
+//  EDIT
 function editLong(min, val) {
     document.getElementById('min_nights').value = min;
     document.getElementById('long_value').value = val;
@@ -222,7 +220,7 @@ function editLast(days, val) {
     document.getElementById('last_value').value = val;
 }
 
-// 🔥 SAVE LONG
+// SAVE LONG
 function saveLong() {
     let min = document.getElementById('min_nights').value;
     let val = document.getElementById('long_value').value;
@@ -272,7 +270,7 @@ function saveLast() {
     });
 }
 
-// 🔥 INIT
+// INIT
 loadDiscounts();
 
 </script>
