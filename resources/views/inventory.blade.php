@@ -4,81 +4,202 @@
     <title>Inventory & Pricing</title>
 
     <style>
-        body { font-family: Arial; background: #f5f7fa; padding: 20px; }
-        h2 { text-align: center; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            margin-top: 20px;
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
         }
 
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
+        body {
+            margin: 0;
+            background: #f4f6f9;
+        }
+
+        h2 {
             text-align: center;
+            margin-top: 30px;
+            font-weight: 600;
         }
 
-        th { background: #f1f1f1; }
-
-        .editable { cursor: pointer; }
-
-        .inline-input {
-            width: 80px;
-            text-align: center;
-        }
-
-        .update-msg {
-            color: green;
-            font-size: 11px;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            background: #ddd;
-            margin: 5px;
-            border-radius: 20px;
-        }
-
-        .tab.active {
-            background: #000;
-            color: white;
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
         }
 
         .tabs {
             display: flex;
             justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .tab {
+            padding: 10px 22px;
+            border-radius: 25px;
+            background: #e0e0e0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .tab.active {
+            background: #000;
+            color: #fff;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 14px;
+            font-size: 14px;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #f1f1f1;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .editable {
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .editable:hover {
+            background: #f1f3f6;
+            border-radius: 6px;
+        }
+
+        .inline-input {
+            width: 80px;
+            padding: 5px;
+            text-align: center;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .update-msg {
+            font-size: 10px;
+            color: green;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            position: fixed;
+            right: -260px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background: white;
+            padding: 20px;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            margin: 10px 0;
+            text-decoration: none;
+            color: black;
+        }
+
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: none;
+            top: 0;
+            left: 0;
+        }
+
+        .overlay.active {
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-<h2>Inventory & Pricing</h2>
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
-<div class="tabs">
-    <div class="tab active" onclick="loadInventory(1, this)">Standard</div>
-    <div class="tab" onclick="loadInventory(2, this)">Deluxe</div>
+<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+<div id="sidebar" class="sidebar">
+    <h3>Zotel Demo</h3>
+    <a href="/">🔍 Booking</a>
+    <a href="/inventory-view">📊 Inventory</a>
+    <a href="/discounts">⚙ Discounts</a>
 </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Room</th>
-            <th>Date</th>
-            <th>Avail</th>
-            <th>1 Person</th>
-            <th>2 Persons</th>
-            <th>3 Persons</th>
-            <th>Breakfast</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-</table>
+
+<h2>Inventory & Pricing</h2>
+
+<div class="container">
+
+    <div class="tabs">
+        <div class="tab active" onclick="loadInventory(1, this)">Standard</div>
+        <div class="tab" onclick="loadInventory(2, this)">Deluxe</div>
+    </div>
+
+    <div class="card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Room</th>
+                    <th>Date</th>
+                    <th>Avail</th>
+                    <th>1 Person</th>
+                    <th>2 Persons</th>
+                    <th>3 Persons</th>
+                    <th>Breakfast</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+</div>
 
 <script>
+
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+}
 
 function loadInventory(roomTypeId, el=null) {
 
@@ -95,9 +216,7 @@ function loadInventory(roomTypeId, el=null) {
 
         data.forEach(row => {
 
-            let date = new Date(row.date).toLocaleDateString('en-GB', {
-                day:'2-digit', month:'short', year:'numeric'
-            });
+            let date = new Date(row.date).toLocaleDateString('en-GB');
 
             html += `
             <tr>
@@ -130,18 +249,15 @@ function loadInventory(roomTypeId, el=null) {
     });
 }
 
-
 function editCell(cell) {
 
     if (cell.querySelector('input')) return;
 
     let field = cell.dataset.field;
-
     let oldValue = parseInt(cell.innerText.replace(/[₹,\s]/g, ''));
 
     let input = document.createElement('input');
     input.type = "number";
-    input.step = "1";
     input.value = oldValue;
     input.className = "inline-input";
 
@@ -161,11 +277,7 @@ function editCell(cell) {
 
         newValue = parseInt(newValue);
 
-        if (field === 'available') {
-            cell.innerHTML = newValue;
-        } else {
-            cell.innerHTML = "₹" + newValue;
-        }
+        cell.innerHTML = field === 'available' ? newValue : "₹" + newValue;
 
         let msg = document.createElement('div');
         msg.className = "update-msg";
