@@ -7,5 +7,6 @@ use App\Http\Controllers\DiscountController;
 
 Route::get('/search', [SearchController::class, 'search']);
 Route::get('/inventory', [InventoryController::class, 'index']);
+Route::post('/update-inventory', [InventoryController::class, 'update']);
 Route::get('/discounts', [DiscountController::class, 'index']);
 Route::post('/discounts', [DiscountController::class, 'store']);
