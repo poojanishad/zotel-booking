@@ -1,53 +1,88 @@
-🚀 Laravel Project Setup
+## 🚀 Laravel Zotel Booking Project
 
-Follow these steps to set up the project locally.
+Follow the steps below to set up the project locally on your machine.
 
-📋 Prerequisites
+---
 
-Make sure you have installed:
+### 📋 Prerequisites
 
-PHP (>= 8.1)
-Composer
-MySQL 
+Ensure the following dependencies are installed:
 
-📥 Installation
+* PHP (>= 8.1)
+* Composer
+* MySQL
 
-Clone the repository:
+---
+
+### 📥 Installation
+
+Clone the repository and navigate into the project directory:
+
+```bash
 git clone https://github.com/poojanishad/zotel-booking.git
 cd zotel-booking
+```
 
-Install PHP dependencies:
+Install the required PHP dependencies:
 
+```bash
 composer install
-⚙️ Environment Setup
+```
 
-Copy .env file:
+---
 
+### ⚙️ Environment Configuration
+
+Create a copy of the environment file:
+
+```bash
 cp .env.example .env
+```
 
-Generate application key:
+Generate the application key:
 
+```bash
 php artisan key:generate
-🗄️ Database Setup
+```
 
-Update your .env file with database credentials:
+---
 
-DB_DATABASE=your_db
-DB_USERNAME=your_user
-DB_PASSWORD=your_password
+### 🗄️ Database Setup
 
-Run migrations:
+Update your `.env` file with your database credentials:
 
+```
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
+```
+
+Run database migrations:
+
+```bash
 php artisan migrate
+```
 
+(Optional) Seed the database with sample data:
+
+```bash
 php artisan db:seed
+```
 
-▶️ Run the Application
+---
 
-Start Laravel server:
+### ▶️ Running the Application
 
+Start the local development server:
+
+```bash
 php artisan serve
+```
 
-Visit:
+Access the application in your browser:
 
+```
 http://127.0.0.1:8000
+```
+
+---
